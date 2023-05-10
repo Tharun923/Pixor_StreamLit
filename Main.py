@@ -1,8 +1,6 @@
 import io
 import base64
-import cv2
-from PIL import Image
-#from filters import *
+from PIL import Image    #python imaging library
 import cv2
 import numpy as np
 import streamlit as st
@@ -60,10 +58,7 @@ def stylization(img, sigma_s = 10, sigma_r = 0.1):
     img_style = cv2.stylization(img_blur, sigma_s = sigma_s, sigma_r = sigma_r)
     return img_style
 
-@st.cache
-def blur_img(img, k=9):
-    blur = cv2.GaussianBlur(img, (k,k), 0, 0)
-    return blur
+
 
 @st.cache
 def sharping_filter(img, k=5):
@@ -170,7 +165,7 @@ def get_image_download_link(img, filename, text):
     return href
 
 # Set title.
-st.title('Artistic Image Filters')
+st.title('Upload an Image to Process')
 
 # Upload image.
 uploaded_file = st.file_uploader('Choose an image file:', type=['png','jpg'])
@@ -194,7 +189,6 @@ if uploaded_file is not None:
                             'Vignette Effect',
                             'Pencil Sketch',
                             'Stylization',
-                            'Blur',
                             'Sharp',
                             'HDR',
                             'Invert Color',
@@ -206,27 +200,10 @@ if uploaded_file is not None:
                             'Outline'
                          ))
 
-    # Define columns for thumbnail images.
-    #col1, col2, col3, col4 = st.columns(4)
-    #with col1:
-    #    st.caption('Black and White')
-    #    st.image('filter_bw.jpg')
-    #with col2:
-    #    st.caption('Sepia / Vintage')
-    #    st.image('filter_sepia.jpg')
-    #with col3:
-    #    st.caption('Vignette Effect')
-    #    st.image('filter_vignette.jpg')
-    #with col4:
-    #    st.caption('Pencil Sketch')
-    #    st.image('filter_pencil_sketch.jpg')
-
-    # Flag for showing output image.
     output_flag = 1
     # Colorspace of output image.
     color = 'BGR'
 
-     # Generate filtered image based on the selected option.
     if option == 'None':
         # Don't show output image.
         output_flag = 0
@@ -244,7 +221,6 @@ if uploaded_file is not None:
         color = 'GRAY'
     elif option == 'Stylization':
         sigma_s = st.slider('sigma_s',0, 200, 40, step = 10)
-        #sigma_r = st.slider('sigma_r', 0, 1,value = 0.1, step = 0.1)
         output = stylization(img, sigma_s) #, sigma_r
     elif option == 'Blur':
         ksize = st.slider('Gaussian Blur kernel size', 1, 13, 7, step = 2)
@@ -274,12 +250,10 @@ if uploaded_file is not None:
         if output_flag == 1:
             st.header('Output')
             st.image(output, channels=color)
-            # fromarray convert cv2 image into PIL format for saving it using download link.
             if color == 'BGR':
                 result = Image.fromarray(output[:,:,::-1])
             else:
                 result = Image.fromarray(output)
-            # Display link.
             st.markdown(get_image_download_link(result,'output.png','Download '+'Output'),
                         unsafe_allow_html=True)
     
