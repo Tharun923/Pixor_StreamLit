@@ -165,7 +165,7 @@ def get_image_download_link(img, filename, text):
     return href
 
 # Set title.
-st.title('Upload an Image to Process')
+st.title('PIXOR - Upload an Image to Process')
 
 # Upload image.
 uploaded_file = st.file_uploader('Choose an image file:', type=['png','jpg'])
