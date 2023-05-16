@@ -196,7 +196,7 @@ if uploaded_file is not None:
                             'Cold Effect',
                             'Embossed Edges',
                             'Right Sobel',
-                            'Brightnis',
+                            'Brightness',
                             'Outline'
                          ))
 
