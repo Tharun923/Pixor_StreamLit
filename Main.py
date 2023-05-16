@@ -239,7 +239,7 @@ if uploaded_file is not None:
         output = embossed_edges(img)
     elif option == 'Right Sobel':
         output = right_sobel(img)
-    elif option == 'Brightnis':
+    elif option == 'Brightness':
         level = st.slider('Brightnis Level', -50, 50, 25, step = 5)
         output = bright(img, level)
     elif option == 'Outline':
