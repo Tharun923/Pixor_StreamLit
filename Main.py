@@ -240,7 +240,7 @@ if uploaded_file is not None:
     elif option == 'Right Sobel':
         output = right_sobel(img)
     elif option == 'Brightness':
-        level = st.slider('Brightnis Level', -50, 50, 25, step = 5)
+        level = st.slider('Brightness Level', -50, 50, 25, step = 5)
         output = bright(img, level)
     elif option == 'Outline':
         k = st.slider('Outline level', 5, 17, 9, step = 9)
